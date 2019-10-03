@@ -1,0 +1,76 @@
+
+.aw-FooterEmailForm__wrap
+  //background-color: $thirdBgColor
+  margin-bottom: 2rem
+  padding-bottom: 2rem
+  font-size: 2rem
+
+  .gform_wrapper
+    margin: 0
+
+    .gform_heading
+      //margin-bottom: 0
+      color: $lightTextColor
+
+      .gform_description
+        margin-bottom: 0
+
+    li.gfield
+      margin-top: 0!important
+      margin-bottom: 1.6rem
+
+    input[type=text]
+      padding: 0.6rem 0.9rem 0.9rem!important
+
+    li.hidden_label input
+      margin-top: 0
+
+    .gform_footer
+      text-align: center
+
+
+  .validation_error
+    background-color: $colorLightPink
+    color: $errorTextOnLightBgColor
+    border: 1px solid $errorTextOnLightBgColor
+    padding: 1rem 1rem 1.4rem 1rem!important
+    margin-bottom: 1.6rem
+    line-height: 1.2
+
+  .gfield_error, li.gfield.gfield_error
+    //background-color: $colorPink!important
+    background-color: transparent!important
+    color: $colorLightPink!important
+    //border-color: lightpink!important
+    border: none!important
+    padding-bottom: 0!important
+    margin-bottom: 0!important
+
+
+  .validation_message
+    color: $errorTextOnDarkBgColor!important
+    padding-top: 0.5rem!important
+
+  .gfield_error
+    input
+      background-color: $errorTextOnDarkBgColor
+      color: $errorTextOnLightBgColor
+      border-width: 2px!important
+
+  .ginput_container
+    margin-top: 0!important
+
+@media only screen and (min-width: 800px)
+  .aw-FooterEmailForm__wrap
+    max-width: 50rem
+    margin-left: auto
+    margin-right: auto
+
+
+@media only screen and (min-width: 641px)
+  .aw-FooterEmailForm__wrap
+    .gform_wrapper ul.gform_fields li.gfield
+      padding-right: 0
+    // ugh, having to override very specific selectors ...
+    .gform_wrapper.gform_validation_error .gform_body ul li.gfield.gfield_error:not(.gf_left_half):not(.gf_right_half)
+      max-width: 100%!important
