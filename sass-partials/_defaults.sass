@@ -47,8 +47,8 @@ a
   color: $linkColor
   text-decoration: none
   &:hover, &:focus
-    color: $textColor
-    text-decoration: none
+    color: $accentColor
+    text-decoration: underline
 
 p
   margin: 0 0 28px
@@ -180,7 +180,7 @@ img
  *---------------------------------------------
 
 input, select, textarea
-  background-color: $thirdBackgroundColor
+  background-color: $thirdBgColor
   border: 1px solid #ddd
   color: $textColor
   font-size: 18px
@@ -190,7 +190,10 @@ input, select, textarea
   width: 100%
 
 input:focus, textarea:focus
-  border: 1px solid #999
+  border-color: $accentColor
+  background-color: $colorDarkGrey
+  color: $accentColor
+  //border: 1px solid #999
   outline: none
 
 input
@@ -206,63 +209,48 @@ input
   color: $textColor
   font-weight: 300
 
-button
-  background-color: $backgroundColor
-  border: 0
-  color: $accentColor
+
+@mixin buttonStyle()
+  background-color: $buttonColor
+  //border: 0
+  color: $textColor
   cursor: pointer
   font-size: 16px
   font-size: 1.6rem
-  font-weight: 300
+  font-weight: 800
   padding: 16px 24px
   text-transform: uppercase
   width: auto
+  border: 1px solid $colorWheat
+
+@mixin buttonHoverStyle()
+  background-color: $colorLightGrey
+  border-color: $colorDarkGrey
+  color: $colorDarkGrey
+
+button, .button
+  @include buttonStyle
 
 input
   &[type="button"], &[type="reset"], &[type="submit"]
-    background-color: $backgroundColor
-    border: 0
-    color: $accentColor
-    cursor: pointer
-    font-size: 16px
-    font-size: 1.6rem
-    font-weight: 300
-    padding: 16px 24px
-    text-transform: uppercase
-    width: auto
+    @include buttonStyle
 
-.button
-  background-color: $backgroundColor
-  border: 0
-  color: $accentColor
-  cursor: pointer
-  font-size: 16px
-  font-size: 1.6rem
-  font-weight: 300
-  padding: 16px 24px
-  text-transform: uppercase
-  width: auto
 
-button:hover
-  background-color: $buttonColor
-  color: $accentColor
+.button:hover, button:focus, button:hover
+  @include buttonHoverStyle
 
 input:hover
   &[type="button"], &[type="reset"], &[type="submit"]
-    background-color: $buttonColor
-    color: $accentColor
+    @include buttonHoverStyle
 
-.button:hover, button:focus
-  background-color: $buttonColor
-  color: $accentColor
 
 input:focus
   &[type="button"], &[type="reset"], &[type="submit"]
-    background-color: $buttonColor
+    background-color: $colorDarkGrey
     color: $accentColor
 
 .button:focus
-  background-color: $buttonColor
+  background-color: $thirdBgColor
   color: $accentColor
 
 .entry-content .button
@@ -281,21 +269,21 @@ input:focus
     background-color: $buttonColor
     color: $accentColor
   button:hover
-    background-color: $thirdBackgroundColor
+    background-color: $thirdBgColor
     color: $textColor
   input:hover
     &[type="button"], &[type="reset"], &[type="submit"]
-      background-color: $thirdBackgroundColor
+      background-color: $thirdBgColor
       color: $textColor
   .button:hover, button:focus
-    background-color: $thirdBackgroundColor
+    background-color: $thirdBgColor
     color: $textColor
   input:focus
     &[type="button"], &[type="reset"], &[type="submit"]
-      background-color: $thirdBackgroundColor
+      background-color: $thirdBgColor
       color: $textColor
   .button:focus
-    background-color: $thirdBackgroundColor
+    background-color: $thirdBgColor
     color: $textColor
 
 .button
@@ -363,7 +351,7 @@ th
   font-weight: bold
   padding: 15px 23px 14px
   color: $textColor
-  background: $thirdBackgroundColor
+  background: $thirdBgColor
   z-index: 100000
   /* Above WP toolbar.
   text-decoration: none

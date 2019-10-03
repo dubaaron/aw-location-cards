@@ -2,10 +2,12 @@
  *----------------------------------------------------------------------------------------------------*/
 
 .site-header
-  background-color: $thirdBackgroundColor
+  background-color: $thirdBgColor
+  @include linearGradient($thirdBgColor, $cardBgColor)
   min-height: $headerHeight
+  border-bottom: 1px dotted
   .wrap
-    padding: 40px 0
+    padding-top: 4rem
 
 /* ## Title Area
  *---------------------------------------------*/
@@ -14,6 +16,7 @@
   float: left
   padding: 10px 0
   width: 360px
+  text-shadow: 2px 2px 2px rgba(0,0,0,0.5)
 
 .header-full-width .title-area
   width: 100%
