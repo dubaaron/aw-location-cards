@@ -3,8 +3,8 @@
 include_once( get_template_directory() . '/lib/init.php' );
 
 //* Child theme (do not remove)
-define( 'CHILD_THEME_NAME', 'Theme Name' );
-define( 'CHILD_THEME_URL', 'http://www.11online.us/' );
+define( 'CHILD_THEME_NAME', 'Aaron Wallentine\'s Location Cards' );
+define( 'CHILD_THEME_URL', 'https://github.com/dubaaron' );
 define( 'CHILD_THEME_VERSION', '2.2.2' );
 
 //* Enqueue Google Fonts
@@ -241,3 +241,86 @@ add_action( 'after_setup_theme', function() {
     add_theme_support( 'disable-custom-colors' );
     add_theme_support( 'align-wide' );
 });
+
+
+
+
+
+function aw_grid_custom_post_class_halves( $classes ) {
+	return aw_grid_custom_post_class( $classes, 2, 'one-half' );
+}
+
+
+function aw_grid_custom_post_class_thirds( $classes ) {
+	return aw_grid_custom_post_class( $classes, 3, 'one-third' );
+}
+
+
+function aw_grid_custom_post_class( $classes, $cols_per_row = 3, $column_class = 'one-third' ) {
+	global $wp_query;
+
+	$term         = $wp_query->get_queried_object();
+
+	$classes[] = 'grid ' . $column_class;
+	$classes[] = "current_post-$wp_query->current_post";
+	$curpost_mod_cols_per_row = $wp_query->current_post % $cols_per_row;
+	$classes[] = "{$wp_query->current_post}-mod-{$cols_per_row}-equals-$curpost_mod_cols_per_row  ";
+
+	if ( 0 == $wp_query->current_post % $cols_per_row ) {
+		$classes[] = 'first';
+	}
+	return $classes;
+}
+
+
+
+function aw_location_card_image() {
+	global $post;
+
+	print_r(get_field('google_map'));
+
+	$map_image_url = gmap_static_map(
+		get_field( 'latitude' ),
+		get_field( 'longitude' ),
+		380, 285,
+		get_field('zoom_level')
+	);
+	$map_image_alt = __( "Small Google Map of ", CHILD_THEME_NAME ) . get_the_title();
+	echo "<a href='" . get_permalink() . "'><img alt='$map_image_alt' class='location-map' src='$map_image_url' /></a>";
+
+}
+
+
+function aw_add_location_cards_wrapper( $priority = 10 ) {
+
+	// Add a wrapper around our card grid
+	add_action( 'genesis_before_while', function ( ) {
+		echo "<div class='aw-LocationCardGrid'>";
+	}, $priority );
+
+	add_action( 'gensis_after_endwhile', function ( ) {
+		echo "</div>";
+	}, $priority );
+
+}
+
+
+function gmap_static_map($lat, $long, $width = 400, $height = 400, $zoom = 12) {
+	return
+		"https://maps.googleapis.com/maps/api/staticmap?"
+		. "size={$width}x{$height}&zoom=$zoom"
+		// '%7C' is a URL-escaped pipe character ('|')
+		. "&markers=color:red%7C$lat,$long"
+		. "&key=" . GOOGLE_MAPS_API_KEY;
+}
+
+
+
+
+add_action( 'genesis_footer', 'aw_show_email_signup', 9 );
+function aw_show_email_signup() {
+
+	echo "<div class='aw-FooterEmailForm__wrap' id='aw-FooterEmailSignup'>";
+	gravity_form( 1 );
+	echo "</div>";
+}
