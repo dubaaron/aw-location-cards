@@ -12,11 +12,11 @@ function custom_post_types() {
 
     $custom_post_types = [
         [
-            'slug' 			=> 'example',
-            'single'	 	=> 'Example',
-            'plural' 		=> 'Examples',
-            'description' 	=> 'Example Post Type',
-            'menu_icon' 	=> 'dashicons-lightbulb'
+            'slug'        => 'location',
+            'single'      => 'Location',
+            'plural'      => 'Locations',
+            'description' => 'Location',
+            'menu_icon'   => 'dashicons-location',
         ]
     ];
 
@@ -61,7 +61,7 @@ function custom_post_types() {
             'show_ui'               => true,
             'show_in_menu'          => true,
             'menu_position'         => 5,
-            'menu_icon'				=> $custom_post_type['menu_icon'],
+            'menu_icon'             => $custom_post_type['menu_icon'],
             'show_in_admin_bar'     => true,
             'show_in_nav_menus'     => true,
             'can_export'            => true,

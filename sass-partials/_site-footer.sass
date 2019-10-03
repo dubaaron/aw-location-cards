@@ -2,11 +2,23 @@
  *----------------------------------------------------------------------------------------------------
 
 .site-footer
-  background-color: $thirdBackgroundColor
+  background-color: $thirdBgColor
+  @include linearGradient($cardBgColor, $thirdBgColor)
+  color: $lightTextColor
+  h1, h2, h3, h4, h5, h6
+    color: $lightTextColor
   font-size: 16px
   font-size: 1.6rem
   line-height: 1
   padding: 40px 0
+  // make sure full footer shows on mobile; was being cut off for some reason
+  padding-bottom: 14rem
   text-align: center
+
   p
     margin-bottom: 0
+
+.aw-FooterHR
+  width: 75%
+  border-top: 1px dotted
+  margin: 2rem auto 4rem

@@ -3,8 +3,8 @@
 include_once( get_template_directory() . '/lib/init.php' );
 
 //* Child theme (do not remove)
-define( 'CHILD_THEME_NAME', 'Theme Name' );
-define( 'CHILD_THEME_URL', 'http://www.11online.us/' );
+define( 'CHILD_THEME_NAME', 'Aaron Wallentine\'s Location Cards' );
+define( 'CHILD_THEME_URL', 'https://github.com/dubaaron' );
 define( 'CHILD_THEME_VERSION', '2.2.2' );
 
 //* Enqueue Google Fonts
@@ -241,3 +241,123 @@ add_action( 'after_setup_theme', function() {
     add_theme_support( 'disable-custom-colors' );
     add_theme_support( 'align-wide' );
 });
+
+
+
+$aw_config_file = __DIR__ . '/config.php';
+if (file_exists( $aw_config_file ) ) {
+	require_once $aw_config_file;
+} else {
+	// to throw an error/warning here, or not? Maybe let's not, but let users
+	// know another way that they should set the value in the config file
+	require_once __DIR__ . '/config-sample.php';
+}
+
+
+function aw_grid_custom_post_class_halves( $classes ) {
+	return aw_grid_custom_post_class( $classes, 2, 'one-half' );
+}
+
+
+function aw_grid_custom_post_class_thirds( $classes ) {
+	return aw_grid_custom_post_class( $classes, 3, 'one-third' );
+}
+
+
+function aw_grid_custom_post_class( $classes, $cols_per_row = 3, $column_class = 'one-third' ) {
+	global $wp_query;
+
+	$term         = $wp_query->get_queried_object();
+
+	$classes[] = 'grid ' . $column_class;
+
+	if ( 0 == $wp_query->current_post % $cols_per_row ) {
+		$classes[] = 'first';
+	}
+	return $classes;
+}
+
+
+function aw_add_location_type_card_grid_view_customizations( ) {
+	/* I guess we could also wrap this in
+	 *    if( ! is_single() && 'location' == get_post_type ) { ... }
+	 * and run it automatically, but for now i think it's best to just call this
+	 * function when doing a card grid view for location type. -- aw 2019-10-02 */
+
+	add_action( 'genesis_entry_header', 'aw_location_card_image', 5 );
+
+	add_action( 'genesis_entry_footer', 'aw_location_card_bottom');
+
+}
+
+
+
+function aw_location_card_image( ) {
+
+	print_r(get_field('google_map'));
+
+	$map_image_url = gmap_static_map(
+		get_field( 'latitude' ),
+		get_field( 'longitude' ),
+		380, 285,
+		get_field('zoom_level')
+	);
+
+	if ( ! defined( 'AW_GOOGLE_MAPS_API_KEY' ) || empty( AW_GOOGLE_MAPS_API_KEY )
+	) {
+		$map_image_alt = __( 'Set AW_GOOGLE_MAPS_API_KEY in config.php of theme directory to get maps.', CHILD_THEME_NAME );
+	} else {
+		$map_image_alt = __( "Small Google Map of ", CHILD_THEME_NAME ) . get_the_title();
+	}
+
+	echo "<a href='" . get_permalink() . "'><img alt='$map_image_alt' class='location-map' src='$map_image_url' /></a>";
+
+}
+
+function aw_location_card_bottom( ) {
+
+	echo "<div class='aw-LocationCard__gradientHolder'></div>";
+
+	$more_link = get_permalink();
+	echo "<div class='aw-LocationCard__moreLink'><a href='$more_link'>";
+	_e("More ...", CHILD_THEME_NAME);
+	echo "</a></div>";
+
+}
+
+
+
+function aw_add_location_cards_wrapper( $priority = 10 ) {
+
+	// Add a wrapper around our card grid
+	add_action( 'genesis_before_while', function ( ) {
+		echo "<div class='aw-LocationCardGrid'>";
+	}, $priority );
+
+	add_action( 'genesis_after_endwhile', function ( ) {
+		echo "</div>";
+	}, $priority );
+
+}
+
+
+function gmap_static_map($lat, $long, $width = 400, $height = 400, $zoom = 12) {
+	return
+		"https://maps.googleapis.com/maps/api/staticmap?"
+		. "size={$width}x{$height}&zoom=$zoom"
+		// '%7C' is a URL-escaped pipe character ('|')
+		. "&markers=color:red%7C$lat,$long"
+		. "&key=" . AW_GOOGLE_MAPS_API_KEY;
+}
+
+
+
+
+add_action( 'genesis_footer', 'aw_show_email_signup', 9 );
+function aw_show_email_signup() {
+
+	echo "<div class='aw-FooterEmailForm__wrap' id='aw-FooterEmailSignup'>";
+	gravity_form( 1 );
+	echo "</div>";
+	echo "<div class='aw-FooterHR'></div>";
+}

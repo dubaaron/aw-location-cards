@@ -1,0 +1,103 @@
+
+.aw-ArchiveResultsDescription
+  color: $bodyTextColor
+  text-align: center
+  font-weight: bold
+
+.content .aw-LocationCardGrid
+  display: flex
+  flex-wrap: wrap
+  justify-content: center
+
+  .type-location
+    padding: 0
+    background-color: $cardBgColor
+    color: $cardTextColor
+    font-size: 1.4rem
+    margin-bottom: 2rem
+    font-weight: lighter
+    height: auto
+    max-height: 538px
+    max-height: 53.8rem
+    overflow: hidden
+    position: relative
+
+    .entry-title
+      margin: 1rem 3rem 3rem
+      text-transform: uppercase
+      font-size: 2.4rem
+      line-height: 2.7rem
+      //max-height: 2.7rem
+      overflow: hidden
+      font-weight: 800
+
+    .entry-title a
+      color: #fff
+
+    .entry-content
+      margin: 0 3rem
+
+    .entry-footer
+      .entry-meta
+        border: 0
+
+    .entry-footer
+      position: absolute
+      bottom: 0
+      width: 100%
+
+
+  .location-map
+    object-fit: cover
+    object-position: bottom
+    width: 100%
+    max-height: 320px
+    max-height: 32rem
+
+  .archive-pagination
+    width: 100%
+    text-align: center
+
+.aw-LocationCard__gradientHolder
+  @include linearGradient(rgba(43, 51, 142, 0), rgba(43, 51, 142, 100))
+  width: 100%
+  height: 4rem
+
+.aw-LocationCard__moreLink
+  background-color: $cardBgColor
+  text-align: right
+  padding: 0 3rem 2rem
+  //position: absolute
+  bottom: 0
+  right: 0
+  width: 100%
+
+@media only screen and (min-width: 800px)
+  .content .aw-LocationCardGrid
+    .type-location
+      font-size: 1.4rem
+      line-height: 1.9rem
+      height: 538px
+      height: 53.8rem
+      max-width: 40%
+
+
+.aw-LocationTiles__archiveLink_wrap
+  text-align: center
+  margin: 0 0 4rem 0
+  width: 100%
+
+.single-location .content .location
+  background-color: $cardBgColor
+  color: $cardTextColor
+  padding: 2rem 3rem 3rem
+
+  .map-container
+    margin-left: -3rem
+    width: calc(100% + 6rem)
+    max-width: initial
+
+  .entry-title
+    color: $cardTextColor
+    text-transform: uppercase
+
