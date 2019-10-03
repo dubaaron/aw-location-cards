@@ -323,4 +323,5 @@ function aw_show_email_signup() {
 	echo "<div class='aw-FooterEmailForm__wrap' id='aw-FooterEmailSignup'>";
 	gravity_form( 1 );
 	echo "</div>";
+	echo "<div class='aw-FooterHR'></div>";
 }
