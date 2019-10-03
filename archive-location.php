@@ -15,25 +15,17 @@ function aw_show_archive_header( $query ) {
 	$end_index = min($cur_page * $listings_per_page, $wp_query->found_posts);
 
 	echo "<p class='aw-ArchiveResultsDescription'>"
-         . sprintf(__("Showing %d to %d of %d locations.",CHILD_THEME_NAME),
+         . sprintf(__("Showing %d to %d of %d locations.", CHILD_THEME_NAME),
             $start_index, $end_index, $wp_query->found_posts) . "</p>";
 }
 
 aw_add_location_cards_wrapper( );
 
-
 //* Remove the entry meta in each entry's header (requires HTML5 theme support)
 remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
 
-
 add_filter( 'post_class', 'aw_grid_custom_post_class' );
 
-add_action( 'genesis_entry_header', 'aw_location_card_image', 5 );
-
-//add_action( 'genesis_after_endwhile', 'genesis_posts_nav');
-
-add_action( 'genesis_entry_footer', function() {
-	// add a "more" link for long ones?
-});
+aw_add_location_type_card_grid_view_customizations();
 
 genesis();

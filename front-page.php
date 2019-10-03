@@ -47,10 +47,9 @@ remove_action( 'genesis_after_endwhile', 'genesis_posts_nav' );
 
 aw_add_location_cards_wrapper( );
 
-// show the top of each location card
-add_action( 'genesis_entry_header', 'aw_location_card_image', 5 );
+aw_add_location_type_card_grid_view_customizations();
 
-
+// do the first row of 2 cards
 add_action( 'genesis_loop', 'aw_show_first_row_locations' );
 function aw_show_first_row_locations( $query ) {
 
@@ -63,6 +62,7 @@ function aw_show_first_row_locations( $query ) {
 	genesis_custom_loop( $args );
 }
 
+// do the second row of 3 cards
 add_action( 'genesis_loop', 'aw_show_next_row_locations' );
 function aw_show_next_row_locations( $query ) {
 

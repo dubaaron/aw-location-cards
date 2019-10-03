@@ -273,9 +273,21 @@ function aw_grid_custom_post_class( $classes, $cols_per_row = 3, $column_class =
 }
 
 
+function aw_add_location_type_card_grid_view_customizations( ) {
+	/* I guess we could also wrap this in
+	 *    if( ! is_single() && 'location' == get_post_type ) { ... }
+	 * and run it automatically, but for now i think it's best to just call this
+	 * function when doing a card grid view for location type. -- aw 2019-10-02 */
 
-function aw_location_card_image() {
-	global $post;
+	add_action( 'genesis_entry_header', 'aw_location_card_image', 5 );
+
+	add_action( 'genesis_entry_footer', 'aw_location_card_bottom');
+
+}
+
+
+
+function aw_location_card_image( ) {
 
 	print_r(get_field('google_map'));
 
@@ -289,6 +301,18 @@ function aw_location_card_image() {
 	echo "<a href='" . get_permalink() . "'><img alt='$map_image_alt' class='location-map' src='$map_image_url' /></a>";
 
 }
+
+function aw_location_card_bottom( ) {
+
+	echo "<div class='aw-LocationCard__gradientHolder'></div>";
+
+	$more_link = get_permalink();
+	echo "<div class='aw-LocationCard__moreLink'><a href='$more_link'>";
+	_e("More ...", CHILD_THEME_NAME);
+	echo "</a></div>";
+
+}
+
 
 
 function aw_add_location_cards_wrapper( $priority = 10 ) {

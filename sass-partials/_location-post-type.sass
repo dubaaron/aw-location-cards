@@ -19,6 +19,7 @@
     max-height: 538px
     max-height: 53.8rem
     overflow: hidden
+    position: relative
 
     .entry-title
       margin: 1rem 3rem 3rem
@@ -39,6 +40,12 @@
       .entry-meta
         border: 0
 
+    .entry-footer
+      position: absolute
+      bottom: 0
+      width: 100%
+
+
   .location-map
     object-fit: cover
     width: 100%
@@ -47,6 +54,19 @@
     width: 100%
     text-align: center
 
+.aw-LocationCard__gradientHolder
+  @include linearGradient(rgba(43, 51, 142, 0), rgba(43, 51, 142, 100))
+  width: 100%
+  height: 4rem
+
+.aw-LocationCard__moreLink
+  background-color: $cardBgColor
+  text-align: right
+  padding: 0 3rem 2rem
+  //position: absolute
+  bottom: 0
+  right: 0
+  width: 100%
 
 @media only screen and (min-width: 800px)
   .content .aw-LocationCardGrid
