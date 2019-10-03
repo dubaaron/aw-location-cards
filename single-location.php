@@ -19,7 +19,7 @@ add_action( 'genesis_before_entry_content', function( ) {
 
 	$map_url = sprintf( "https://www.google.com/maps/embed/v1/place?q=%f,%f&key=%s&zoom=%d",
 		get_field('latitude'), get_field('longitude'),
-		GOOGLE_MAPS_API_KEY, get_field('zoom_level')
+		AW_GOOGLE_MAPS_API_KEY, get_field('zoom_level')
 	);
 		echo "<iframe class='map-container' width='100%' height='450' src='$map_url' frameborder='0' style='border:0' allowfullscreen></iframe>";
 });

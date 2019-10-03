@@ -4,3 +4,6 @@ node_modules
 .idea
 maps/*
 package-lock.json
+
+# never commit to repo - contains sensitive credentials
+/config.php

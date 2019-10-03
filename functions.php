@@ -335,7 +335,7 @@ function gmap_static_map($lat, $long, $width = 400, $height = 400, $zoom = 12) {
 		. "size={$width}x{$height}&zoom=$zoom"
 		// '%7C' is a URL-escaped pipe character ('|')
 		. "&markers=color:red%7C$lat,$long"
-		. "&key=" . GOOGLE_MAPS_API_KEY;
+		. "&key=" . AW_GOOGLE_MAPS_API_KEY;
 }
 
 
