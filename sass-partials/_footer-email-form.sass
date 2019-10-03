@@ -7,20 +7,33 @@
 
   .gform_wrapper
     margin: 0
-  .gform_heading
-    margin-bottom: 0
-    color: wheat
-  //.gform_description
-  //  color: $accentColor
+
+    .gform_heading
+      //margin-bottom: 0
+      color: $textColor
+
+      .gform_description
+        margin-bottom: 0
+
+    li.gfield
+      margin-top: 0!important
+
+    li.hidden_label input
+      margin-top: 0
+
+    .gform_footer
+      text-align: center
 
 
-  .gform_footer
-    text-align: center
+  .validation_error
+    background-color: $colorLightPink
+    color: $errorTextOnLightBgColor
+    border: 1px solid $errorTextOnLightBgColor
+    padding: 1rem 1rem 1.4rem 1rem
+    margin-bottom: 1.6rem
+    line-height: 1.2
 
-  li.gfield
-    margin-top: 0!important
-
-  .validation_error, .gfield_error, li.gfield.gfield_error
+  .gfield_error, li.gfield.gfield_error
     //background-color: $colorPink!important
     background-color: transparent!important
     color: $colorLightPink!important
