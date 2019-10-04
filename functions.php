@@ -244,6 +244,14 @@ add_action( 'after_setup_theme', function() {
 
 
 
+$aw_config_file = __DIR__ . '/config.php';
+if (file_exists( $aw_config_file ) ) {
+	require_once $aw_config_file;
+} else {
+	// to throw an error/warning here, or not? Maybe let's not, but let users
+	// know another way that they should set the value in the config file
+	require_once __DIR__ . '/config-sample.php';
+}
 
 
 function aw_grid_custom_post_class_halves( $classes ) {
@@ -262,9 +270,6 @@ function aw_grid_custom_post_class( $classes, $cols_per_row = 3, $column_class =
 	$term         = $wp_query->get_queried_object();
 
 	$classes[] = 'grid ' . $column_class;
-	$classes[] = "current_post-$wp_query->current_post";
-	$curpost_mod_cols_per_row = $wp_query->current_post % $cols_per_row;
-	$classes[] = "{$wp_query->current_post}-mod-{$cols_per_row}-equals-$curpost_mod_cols_per_row  ";
 
 	if ( 0 == $wp_query->current_post % $cols_per_row ) {
 		$classes[] = 'first';
@@ -297,7 +302,14 @@ function aw_location_card_image( ) {
 		380, 285,
 		get_field('zoom_level')
 	);
-	$map_image_alt = __( "Small Google Map of ", CHILD_THEME_NAME ) . get_the_title();
+
+	if ( ! defined( 'AW_GOOGLE_MAPS_API_KEY' ) || empty( AW_GOOGLE_MAPS_API_KEY )
+	) {
+		$map_image_alt = __( 'Set AW_GOOGLE_MAPS_API_KEY in config.php of theme directory to get maps.', CHILD_THEME_NAME );
+	} else {
+		$map_image_alt = __( "Small Google Map of ", CHILD_THEME_NAME ) . get_the_title();
+	}
+
 	echo "<a href='" . get_permalink() . "'><img alt='$map_image_alt' class='location-map' src='$map_image_url' /></a>";
 
 }
@@ -322,7 +334,7 @@ function aw_add_location_cards_wrapper( $priority = 10 ) {
 		echo "<div class='aw-LocationCardGrid'>";
 	}, $priority );
 
-	add_action( 'gensis_after_endwhile', function ( ) {
+	add_action( 'genesis_after_endwhile', function ( ) {
 		echo "</div>";
 	}, $priority );
 
