@@ -270,9 +270,6 @@ function aw_grid_custom_post_class( $classes, $cols_per_row = 3, $column_class =
 	$term         = $wp_query->get_queried_object();
 
 	$classes[] = 'grid ' . $column_class;
-	$classes[] = "current_post-$wp_query->current_post";
-	$curpost_mod_cols_per_row = $wp_query->current_post % $cols_per_row;
-	$classes[] = "{$wp_query->current_post}-mod-{$cols_per_row}-equals-$curpost_mod_cols_per_row  ";
 
 	if ( 0 == $wp_query->current_post % $cols_per_row ) {
 		$classes[] = 'first';
@@ -337,7 +334,7 @@ function aw_add_location_cards_wrapper( $priority = 10 ) {
 		echo "<div class='aw-LocationCardGrid'>";
 	}, $priority );
 
-	add_action( 'gensis_after_endwhile', function ( ) {
+	add_action( 'genesis_after_endwhile', function ( ) {
 		echo "</div>";
 	}, $priority );
 
